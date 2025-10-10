@@ -1,0 +1,12 @@
+rootProject.name = "demo"
+include("eureka-server")
+project(":eureka-server").projectDir = file("infrastructure/eureka-server")
+include("config-server")
+project(":config-server").projectDir = file("infrastructure/config-server")
+include("user-service")
+include("order-service")
+include("api-gateway")
+project(":api-gateway").projectDir = file("infrastructure/api-gateway")
+include("auth-service")
+include("product-service")
+include("marketplace-common")

@@ -1,0 +1,33 @@
+server:
+  port: 8060
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb:http://ORDER-SERVICE
+          predicates:
+            - Path=/api/order/**
+        - id: user-service
+          uri: lb:http://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+        - id: product-service
+          uri: lb:http://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/product/**
+    config:
+      enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+management:
+  tracing:
+    sampling:
+      probability: 1
+jwt:
+  secret: 47c0300c5560aa178f526450d31b3b35f626a802c27340a49c60a87a2dd33d4c47c0300c5560aa178f526450d31b3b35f626a802c27340a49c60a87a2dd33d4c
