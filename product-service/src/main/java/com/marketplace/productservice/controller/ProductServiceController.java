@@ -2,7 +2,10 @@ package com.marketplace.productservice.controller;
 
 import com.marketplace.productservice.dto.ProductDto;
 import com.marketplace.productservice.dto.ProductResponseDto;
+import com.marketplace.productservice.dto.ProductUpdateDto;
+import com.marketplace.productservice.service.ProductService;
 import com.marketplace.productservice.service.ProductServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,7 @@ import com.marketplace.common.model.Role;
 @RequiredArgsConstructor
 public class ProductServiceController {
 
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
 
     @GetMapping("/products")
     public ResponseEntity<List<ProductResponseDto>> getProducts(){
@@ -29,12 +32,12 @@ public class ProductServiceController {
     }
 
     @PostMapping()
-    public ResponseEntity<ProductResponseDto> createProduct(@RequestBody ProductDto product, @RequestHeader("X-Auth-Role") Role role){
+    public ResponseEntity<ProductResponseDto> createProduct(@RequestBody @Valid ProductDto product, @RequestHeader("X-Auth-Role") Role role){
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(product, role));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponseDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto product, @RequestHeader("X-Auth-Role") Role role){
+    public ResponseEntity<ProductResponseDto> updateProduct(@PathVariable Long id, @RequestBody ProductUpdateDto product, @RequestHeader("X-Auth-Role") Role role){
         return ResponseEntity.status(HttpStatus.OK).body(productService.updateProduct(id, product, role));
     }
 

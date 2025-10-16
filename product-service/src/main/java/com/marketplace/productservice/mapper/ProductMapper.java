@@ -2,6 +2,7 @@ package com.marketplace.productservice.mapper;
 
 import com.marketplace.productservice.dto.ProductDto;
 import com.marketplace.productservice.dto.ProductResponseDto;
+import com.marketplace.productservice.dto.ProductUpdateDto;
 import com.marketplace.productservice.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -14,5 +15,5 @@ public interface ProductMapper {
 
     Product toProduct(ProductDto productDto);
 
-    Product updateProductFromDto(@MappingTarget Product product, ProductDto productDto);
+    Product updateProductFromDto(@MappingTarget Product product, ProductUpdateDto productUpdateDto);
 }

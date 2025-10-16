@@ -3,6 +3,7 @@ package com.marketplace.productservice.service;
 import com.marketplace.common.model.Role;
 import com.marketplace.productservice.dto.ProductDto;
 import com.marketplace.productservice.dto.ProductResponseDto;
+import com.marketplace.productservice.dto.ProductUpdateDto;
 import com.marketplace.productservice.mapper.ProductMapper;
 import com.marketplace.productservice.model.Product;
 import com.marketplace.productservice.repository.ProductRepository;
@@ -42,13 +43,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto updateProduct(Long id, ProductDto productDto, Role role) {
+    public ProductResponseDto updateProduct(Long id, ProductUpdateDto productUpdateDto, Role role) {
         if (role == Role.USER) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "no permission");
         }
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "product not found"));
-        productMapper.updateProductFromDto(product, productDto);
+        productMapper.updateProductFromDto(product, productUpdateDto);
         return productMapper.toProductResponseDto(productRepository.save(product));
     }
 
