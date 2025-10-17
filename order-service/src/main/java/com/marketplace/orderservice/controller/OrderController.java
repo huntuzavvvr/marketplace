@@ -17,17 +17,14 @@ import java.util.Map;
 public class OrderController {
     private final OrderService orderService;
 
-    @GetMapping()
-    public ResponseEntity<OrderResponseDto> getOrders(Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(orderService.getOrders(id));
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponseDto> getOrderById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getOrderById(id));
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderDto orderDto,
                                                         @RequestHeader Map<String, String> headers){
-        for (Map.Entry<String, String> header : headers.entrySet()) {
-            System.out.println(header.getKey() + ": " + header.getValue());
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(orderDto));
     }
 
