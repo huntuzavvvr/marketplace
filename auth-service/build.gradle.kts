@@ -14,4 +14,19 @@ dependencies {
     implementation("com.h2database:h2:2.3.232")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.6")
     implementation("org.springframework.boot:spring-boot-starter-security:3.5.6")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    implementation("org.springframework.boot:spring-boot-starter-validation:3.5.6")
+    // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    implementation("jakarta.validation:jakarta.validation-api:3.1.1")
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+//    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.0")
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+//    testImplementation("org.mockito:mockito-core:5.20.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.6")
+
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

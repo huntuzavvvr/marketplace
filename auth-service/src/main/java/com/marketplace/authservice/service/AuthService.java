@@ -23,6 +23,9 @@ public class AuthService {
     private final UserMapper userMapper;
 
     public AuthResponse register(RegisterDto registerDto) {
+        if (userRepository.findByUsername(registerDto.getUsername()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
+        }
         AuthResponse response = new AuthResponse(jwtTokenUtil.generateToken(registerDto.getUsername(),
                 registerDto.getRole().name()));
         userRepository.save(userMapper.toEntity(registerDto));
@@ -34,7 +37,7 @@ public class AuthService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         if  (!password.equals(user.getPassword())) {
-            throw new ForbiddenException();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Wrong Password");
         }
 
         AuthResponse response = new AuthResponse(jwtTokenUtil.generateToken(username, "ADMIN"));
