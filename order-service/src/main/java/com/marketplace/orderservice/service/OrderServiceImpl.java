@@ -9,8 +9,10 @@ import com.marketplace.orderservice.model.Order;
 import com.marketplace.orderservice.repository.OrderRepository;
 import com.marketplace.orderservice.service.kafka.MessageServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.stream.Collectors;
 
@@ -23,7 +25,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDto getOrderById(Long orderId) {
-        return orderMapper.toDto(orderRepository.findById(orderId).orElse(null));
+        return orderMapper.toDto(orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found")));
     }
 
     @Override
@@ -33,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDto updateOrder(Long id, OrderDto orderDto){
-        Order order = orderRepository.findById(id).orElse(null);
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
 //        order.setOrderName(orderDto.getOrderName());
         return orderMapper.toDto(orderRepository.save(order));
     }
@@ -51,7 +54,6 @@ public class OrderServiceImpl implements OrderService {
         messageService.sendMessage("order-created", orderCreateEvent);
 
 
-
         return orderMapper.toDto(order);
     }
 
@@ -61,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void confirmOrder(OrderCreateEvent orderCreateEvent) {
         System.out.println("CONFIRMATION ORDER");
-        Order order = orderRepository.findById(orderCreateEvent.getOrderId()).orElse(null);
+        Order order = orderRepository.findById(orderCreateEvent.getOrderId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
         if (order != null) {
             order.setStatus("CONFIRMED");
             orderRepository.save(order);
