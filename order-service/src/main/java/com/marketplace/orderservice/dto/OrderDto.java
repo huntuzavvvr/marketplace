@@ -2,7 +2,10 @@ package com.marketplace.orderservice.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class OrderDto {
-    private String orderName;
+    private Long userId;
+    private List<OrderItemDto> orderItems;
 }
