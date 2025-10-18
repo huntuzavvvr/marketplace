@@ -14,7 +14,16 @@ dependencies{
     // https://mvnrepository.com/artifact/io.zipkin.reporter2/zipkin-reporter-brave
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.opentelemetry:opentelemetry-exporter-zipkin")
-
+    // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    implementation("jakarta.validation:jakarta.validation-api:3.1.1")
     // https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
     implementation("org.springframework.kafka:spring-kafka:3.3.10")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.6")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    implementation("org.springframework.boot:spring-boot-starter-validation:3.5.6")
+}
+
+tasks.test{
+    useJUnitPlatform()
 }

@@ -4,6 +4,7 @@ import com.marketplace.orderservice.dto.OrderDto;
 import com.marketplace.orderservice.dto.OrderResponseDto;
 import com.marketplace.orderservice.mapper.OrderMapper;
 import com.marketplace.orderservice.service.OrderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class OrderController {
     }
 
     @PostMapping()
-    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderDto orderDto,
+    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody @Valid OrderDto orderDto,
                                                         @RequestHeader Map<String, String> headers){
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(orderDto));
     }
@@ -35,7 +36,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderResponseDto> updateOrder(@PathVariable Long id, OrderDto orderDto){
+    public ResponseEntity<OrderResponseDto> updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDto){
         return ResponseEntity.status(HttpStatus.OK).body(orderService.updateOrder(id, orderDto));
     }
 }
