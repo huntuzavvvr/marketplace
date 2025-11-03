@@ -1,0 +1,39 @@
+
+spring:
+
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: notification-service-group
+      auto-offset-reset: latest
+      enable-auto-commit: true
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: true
+    properties:
+      spring.json.trusted.packages: "*"
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    password: wkvh vrqx rrjs swls
+    username: kirill05301@gmail.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: false
+server:
+  port: 8050
+
+management:
+  tracing:
+    sampling:
+      probability: 1

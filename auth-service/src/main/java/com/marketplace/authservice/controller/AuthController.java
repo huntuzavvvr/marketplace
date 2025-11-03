@@ -1,8 +1,6 @@
 package com.marketplace.authservice.controller;
 
-import com.marketplace.authservice.dto.AuthResponse;
-import com.marketplace.authservice.dto.LoginDto;
-import com.marketplace.authservice.dto.RegisterDto;
+import com.marketplace.authservice.dto.*;
 import com.marketplace.authservice.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +21,17 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody @Valid LoginDto loginDto) {
         return ResponseEntity.ok(authService.login(loginDto.getUsername(), loginDto.getPassword()));
     }
+
+    @PostMapping("api/auth/logout")
+    public ResponseEntity<AuthResponse> logout(@RequestBody @Valid LoginDto loginDto) {return null;}
+
+    @PostMapping("api/auth/refresh-token")
+    public ResponseEntity<RefreshResponseDto> refreshToken(@RequestBody @Valid RefreshDto refreshDto) {
+        return ResponseEntity.ok(authService.refreshToken(refreshDto));
+    }
+
+//    @PostMapping("/api/auth/verify-email")
+//    public ResponseEntity<AuthResponse> verifyEmail() {
+//        return ResponseEntity.ok(authService.verifyEmail(loginDto));
+//    }
 }

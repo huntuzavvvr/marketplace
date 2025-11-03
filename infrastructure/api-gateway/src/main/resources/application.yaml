@@ -18,6 +18,10 @@ spring:
           uri: lb:http://PRODUCT-SERVICE
           predicates:
             - Path=/api/product/**
+        - id: inventory-service
+          uri: lb:http://INVENTORY-SERVICE
+          predicates:
+            - Path=/api/inventory/**
     config:
       enabled: false
   security:

@@ -45,12 +45,13 @@ public class OrderServiceImpl implements OrderService {
     public OrderResponseDto createOrder(OrderDto orderDto) {
         OrderCreateEvent orderCreateEvent = new OrderCreateEvent();
         orderCreateEvent.setOrderItems(orderDto.getOrderItems().stream().map(a -> new OrderItemEvent(a.getProductId(), a.getQuantity())).collect(Collectors.toList()));
-        System.out.println("SHIT TALK");
         Order order = orderMapper.toEntity(orderDto);
         order.setStatus("PENDING");
-        order = orderRepository.save(order);
-        System.out.println("Order created");
-        orderCreateEvent.setOrderId(order.getId());
+        Order savedOrder = orderRepository.save(order);
+
+        order.getOrderItems().forEach(item -> item.setOrder(savedOrder));
+        orderRepository.save(savedOrder);
+        orderCreateEvent.setOrderId(savedOrder.getId());
         messageService.sendMessage("order-created", orderCreateEvent);
 
 

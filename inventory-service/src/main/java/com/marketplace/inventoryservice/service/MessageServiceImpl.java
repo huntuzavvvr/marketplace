@@ -1,5 +1,6 @@
 package com.marketplace.inventoryservice.service;
 
+import com.marketplace.common.event.InventoryErrorEvent;
 import com.marketplace.common.event.OrderCreateEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class MessageServiceImpl {
     private final InventoryServiceImpl inventoryService;
 
-    private final KafkaTemplate<String, OrderCreateEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @KafkaListener(topics = "order-created", groupId = "inventory-service-group")
     public void handleEvent(OrderCreateEvent event) {
@@ -20,13 +21,16 @@ public class MessageServiceImpl {
             inventoryService.createOrder(event);
             sendMessage("inventory-reserved", event);
         }
-        catch (Exception e) {
-            sendMessage("inventory-error", event);
+        catch (NullPointerException e) {
+            sendMessage("inventory-error", new InventoryErrorEvent(event.getOrderId(), "product not found in inventory"));
+        }
+        catch (RuntimeException e) {
+            sendMessage("inventory-error", new InventoryErrorEvent(event.getOrderId(), e.getMessage()));
         }
     }
 
-    public void sendMessage(String topic, OrderCreateEvent orderCreateEvent) {
-        kafkaTemplate.send(topic, orderCreateEvent);
+    public void sendMessage(String topic, Object event) {
+        kafkaTemplate.send(topic, event);
     }
 
 }

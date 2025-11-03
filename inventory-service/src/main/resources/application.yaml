@@ -8,7 +8,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
   kafka:
     bootstrap-servers: localhost:29092
@@ -50,3 +50,7 @@ eureka:
 server:
   port: 8040
 #      payment-processed: "payment-processed"
+management:
+  tracing:
+    sampling:
+      probability: 1

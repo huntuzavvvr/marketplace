@@ -1,6 +1,7 @@
 package com.marketplace.authservice.dto;
 
 import com.marketplace.common.model.Role;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,9 @@ public class RegisterDto {
 
     @NotBlank
     private String password;
+
+    @Email
+    private String email;
 
     @NotNull
     private Role role;

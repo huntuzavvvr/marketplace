@@ -6,7 +6,7 @@ dependencies{
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.6")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation("org.projectlombok:lombok:1.18.36");
-    annotationProcessor("org.projectlombok:lombok:1.18.36");
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
     implementation("org.mapstruct:mapstruct:1.5.5.Final");
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final");
 
@@ -22,6 +22,11 @@ dependencies{
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.6")
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
     implementation("org.springframework.boot:spring-boot-starter-validation:3.5.6")
+//    implementation("io.opentelemetry.instrumentation:opentelemetry-spring-kafka-3.0:1.31.0-alpha")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation("org.springframework.boot:spring-boot-starter-actuator:3.5.7")
+    // https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus
+    implementation("io.micrometer:micrometer-registry-prometheus")
 }
 
 tasks.test{

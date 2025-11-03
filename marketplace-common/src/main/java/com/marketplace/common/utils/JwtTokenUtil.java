@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.function.Function;
 
 @Component
@@ -21,6 +22,16 @@ public class JwtTokenUtil {
         return Jwts.builder()
                 .subject(username)
                 .claim("role", role)
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                .compact();
+    }
+
+    public String generateRefreshToken(String username, String role){
+        return Jwts.builder()
+                .subject(username)
+                .claim("tokenType", "REFRESH")
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
     }

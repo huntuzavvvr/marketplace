@@ -18,12 +18,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation:3.5.6")
     // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
     implementation("jakarta.validation:jakarta.validation-api:3.1.1")
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation("org.postgresql:postgresql:42.7.8")
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
 //    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.0")
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
 //    testImplementation("org.mockito:mockito-core:5.20.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.6")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+    implementation("org.springframework.boot:spring-boot-starter-mail:3.5.6")
 
 }
 

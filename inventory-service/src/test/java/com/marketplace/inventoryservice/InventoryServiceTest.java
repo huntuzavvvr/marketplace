@@ -48,4 +48,7 @@ public class InventoryServiceTest {
         when(inventoryRepository.save(inventory)).thenReturn(inventory);
         when(inventoryMapper.toInventoryResponseDto(inventory)).thenReturn(inventoryResponseDto);
     }
+
+//    @Test
+//    public void createOrder_shouldReturnInventory
 }

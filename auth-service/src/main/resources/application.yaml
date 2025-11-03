@@ -2,28 +2,43 @@ hui:
   secret: skufskufskufskufskufskufskufskufskufskufskufskufskufskuf
   issuer: auth-service
 
-
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
-
-
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://localhost:5432/marketplace
+    driver-class-name: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    password: wkvh vrqx rrjs swls
+    username: kirill05301@gmail.com
     properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
-    defer-datasource-initialization: true
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: false
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        format_sql: true
+#        use_sql_comments: true
+#    defer-datasource-initialization: true
 eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka
 jwt:
   secret: 47c0300c5560aa178f526450d31b3b35f626a802c27340a49c60a87a2dd33d4c47c0300c5560aa178f526450d31b3b35f626a802c27340a49c60a87a2dd33d4c
+server:
+  port: 8010
